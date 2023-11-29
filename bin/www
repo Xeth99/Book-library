@@ -4,22 +4,23 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('week-6-task:server');
+const app = require('../dist/app').default;
+// var app = require('../src/app');
+var debug = require('debug')('week-6-pod-b-xeth99-1:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '7000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -87,4 +88,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log("Listening on port...");
 }
