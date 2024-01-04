@@ -5,18 +5,19 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import sequelize from './config/database.config';
-import { z } from 'zod';
-
-
-import indexRouter from './routes/index';
+import session from 'express-session';
+import * as dotenv from 'dotenv';
 import usersRouter from './routes/users';
+import booksRouter from './routes/book';
+import homeRouter from './routes/home';
 
-
-
+dotenv.config()
 const app = express();
+const api = process.env.API_URL;
 
 
-sequelize.sync({ alter: true })
+//sequelize instance
+sequelize.sync()
 .then(() => {
   console.log('Database & tables created!');
 })
@@ -24,25 +25,51 @@ sequelize.sync({ alter: true })
   console.log('Error!', err);
 });
 
+
 // view engine setup
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'ejs');
 
+//packages
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+//cookies - for authentication
+// app.use(
+//   session({
+//     secret: 'Your-default-secret-key',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true },
+//   })
+// );
+
+app.use(
+  session({
+    secret: 'Your-default-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === 'production' }, // Use secure cookie in production
+  })
+);
+
+//Routes
+app.use(`${api}`, homeRouter);
+app.use(`${api}/users`, usersRouter);
+app.use(`${api}/books`, booksRouter);
+
+
+
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
-
-
 
 
 // catch 404 and forward to error handler
@@ -61,8 +88,5 @@ app.use(function(err:any, req: Request, res: Response, next: NextFunction) {
   res.render('error');
 });
 
-// app.listen(port, () => {
-//   console.log(`server is running on port ${port}`);
-// });
 
 export default app;

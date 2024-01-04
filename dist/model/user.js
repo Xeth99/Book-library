@@ -13,6 +13,12 @@ class User extends sequelize_1.Model {
 }
 exports.User = User;
 User.init({
+    id: {
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
+        primaryKey: true,
+        allowNull: false
+    },
     authorName: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
@@ -21,17 +27,16 @@ User.init({
         type: sequelize_1.DataTypes.STRING
         // allowNull defaults to true
     },
-    id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-    },
     phoneNumber: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
+    password: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    }
 }, {
     sequelize: database_config_1.default,
     modelName: 'User'
 });
+exports.default = User;

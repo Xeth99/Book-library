@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/stylesheets/style.css">
+    <title>zXyk Books Store</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <h3 class="navbar-brand">zXyk Books Store</h3>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/createbooks">Add book</a></li>
+            <li><a href="/editBooks">Edit Books</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/signup"></span> Sign Up</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <h3 style="text-align: center; margin: 20px;">Create a Book</h3>
+
+    <div class="col-sm-6 col-md-6 col-sm-offset-3">
+        <form action="/createbooks" method="post">
+           
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" name="title" class="form-control" id="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="datePublished">Date Published:</label>
+                <input type="date" name="datePublished" class="form-control" id="datePublished" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="pageCount">Page Count:</label>
+                <input type="number" name="pageCount" class="form-control" id="pageCount">
+            </div>
+
+            <div class="form-group">
+                <label for="genre">Genre:</label>
+                <input type="text" name="genre" class="form-control" id="genre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="publisher">Publisher:</label>
+                <input type="text" name="publisher" class="form-control" id="publisher" required>
+            </div>
+
+            <div style="display: flex; justify-content: space-evenly;">
+            <button type="submit" class="btn btn-default">Add Book</button>
+            <!-- <a style="margin-top: 2em;" href="/books">Edit Books</a> -->
+            <button href="/editBooks" class="btn btn-default">Edit Book</button>
+            </div>
+        </form>
+        
+    </div>
+    <!-- <a style="margin-top: 2em;" href="/books">Edit Books</a> -->
+</body>
+</html>
+

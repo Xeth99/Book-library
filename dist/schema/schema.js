@@ -1,54 +1,53 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.validate = exports.updateNoteSchema = exports.params = exports.createBookSchema = void 0;
-const zod_1 = require("zod");
-exports.createBookSchema = zod_1.z.object({
-    body: zod_1.z.object({
-        title: zod_1.z.string({
-            required_error: "Title is required",
-        }),
-        datePublished: zod_1.z.string({
-            required_error: "Content is required",
-        }),
-        description: zod_1.z.string().optional(),
-        pageCount: zod_1.z.boolean().optional(),
-        genre: zod_1.z.string().optional(),
-    }),
-});
-exports.params = zod_1.z.object({
-    bookId: zod_1.z.string(),
-});
-exports.updateNoteSchema = zod_1.z.object({
-    params: exports.params,
-    body: zod_1.z
-        .object({
-        title: zod_1.z.string(),
-        datePublished: zod_1.z.string(),
-        description: zod_1.z.string(),
-        pageCount: zod_1.z.boolean(),
-        genre: zod_1.z.string(),
-        bookId: zod_1.z.number(),
-        publisher: zod_1.z.string(),
-    })
-        .partial(),
-});
-const validate = (schema) => (req, res, next) => {
-    try {
-        schema.parse({
-            params: req.params,
-            query: req.query,
-            body: req.body,
-        });
-        next();
-    }
-    catch (error) {
-        if (error instanceof zod_1.z.ZodError) {
-            return res.status(400).json({
-                status: "fail",
-                errors: error.errors,
-            });
-        }
-        next(error);
-    }
-};
-exports.validate = validate;
+// import { z } from "zod";
+// export const createBookSchema = z.object({
+//   body: z.object({
+//     title: z.string({
+//       required_error: "Title is required",
+//     }),
+//     datePublished: z.string({
+//       required_error: "Content is required",
+//     }),
+//     description: z.string().optional(),
+//     pageCount: z.boolean().optional(),
+//     genre: z.string().optional(),
+//   }),
+// });
+// export const params = z.object({
+//   bookId: z.string(),
+// });
+// export const updateNoteSchema = z.object({
+//   params,
+//   body: z
+//     .object({
+//       title: z.string(),
+//       datePublished: z.string(),
+//       description: z.string(),
+//       pageCount: z.boolean(),
+//       genre: z.string(),
+//       bookId: z.number(),
+//       publisher: z.string(),
+//     })
+//     .partial(),
+// });
+// export type ParamsInput = z.TypeOf<typeof params>;
+// export type CreateNoteInput = z.TypeOf<typeof createBookSchema>["body"];
+// export type UpdateNoteInput = z.TypeOf<typeof updateNoteSchema>;
+// export const validate = (schema: any) => (req: any, res: any, next: any) => {
+//   try {
+//     schema.parse({
+//       params: req.params,
+//       query: req.query,
+//       body: req.body,
+//     });
+//     next();
+//   } catch (error) {
+//     if (error instanceof z.ZodError) {
+//       return res.status(400).json({
+//         status: "fail",
+//         errors: error.errors,
+//       });
+//     }
+//     next(error);
+//   }
+// };
